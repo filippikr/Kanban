@@ -6,8 +6,8 @@
     <color name="color_delete">#FF4747</color>
     <color name="color_details">#234FEA</color>
 
-    <color name="color_status_todo">#333333</color>
-    <color name="color_status_done">#333333</color>
+    <color name="color_status_todo">#FF5722</color>
+    <color name="color_status_done">#4CAF50</color>
 
     <color name="white">#FFFFFFFF</color>
     <color name="black"> #000000</color>
