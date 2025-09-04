@@ -69,11 +69,11 @@ class DoingFragment : Fragment() {
     }
 
     private fun getTask() = listOf(
-        Task("0", "Criar CRUD Usuário NexOs", Status.DOING),
-        Task("1","Reformular BD ", Status.DOING),
+        Task("0","Criar CRUD Usuário NexOs", Status.DOING),
+        Task("1","Reformular BD NexOs", Status.DOING),
         Task("2","Lavar Roupas", Status.DOING),
-        Task("3", "Criar modo escuro (Dark Mode)", Status.DOING),
-        Task("4","Adicionar suporte a múltiplos idiomas", Status.DOING),
+        Task("3","Dobrar Roupas", Status.DOING),
+        Task("4","Ouvir ao Repertório de Domingo", Status.DOING),
     )
 
     override fun onDestroyView() {

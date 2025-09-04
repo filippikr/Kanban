@@ -66,11 +66,11 @@ class DoneFragment : Fragment() {
     }
 
     private fun getTask() = listOf(
-        Task("0", "Gerar relatórios de produtividade", Status.DONE),
-        Task("1","Implementar login offline e sincronização posterior", Status.DONE),
-        Task("2","Adicionar opção de comentários nas tarefas", Status.DONE),
-        Task("3", "Implementar sistema de tags/categorias", Status.DONE),
-        Task("4","Criar dashboard com estatísticas visuais", Status.DONE),
+        Task("0","CRUD OS NexOs", Status.DONE),
+        Task("1","Tela de login NexOs", Status.DONE),
+        Task("2","Fazer Janta", Status.DONE),
+        Task("3","Lavar louça", Status.DONE),
+        Task("4","Fazer inscrição TOEFL", Status.DONE),
     )
 
     override fun onDestroyView() {

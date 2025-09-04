@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="dark">#1F516F</color>
-    <color name="white">#FFFFFFFF</color>
+
     <color name="color_default">#373F46</color>
-    <color name="elphaba">#2AC9B6</color>
     <color name="color_delete">#FF4747</color>
     <color name="color_details">#234FEA</color>
-    <color name="color_status_todo">#D59F9A</color>
-    <color name="color_status_done">#000000</color>
+
+    <color name="color_status_todo">#333333</color>
+    <color name="color_status_done">#333333</color>
+
+    <color name="white">#FFFFFFFF</color>
     <color name="black"> #000000</color>
 </resources>
