@@ -12,7 +12,7 @@ import com.filippi.kanban.data.model.Status
 import com.filippi.kanban.data.model.Task
 import com.filippi.kanban.databinding.FragmentTodoBinding
 import com.filippi.kanban.ui.adapter.TaskAdapter
-import kotlin.math.truncate
+
 
 
 class TodoFragment : Fragment() {
