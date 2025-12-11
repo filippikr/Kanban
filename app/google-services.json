@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "36095375488",
+    "firebase_url": "https://kanban-cdaee-default-rtdb.firebaseio.com",
+    "project_id": "kanban-cdaee",
+    "storage_bucket": "kanban-cdaee.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:36095375488:android:1ed348a164073f36334e65",
+        "android_client_info": {
+          "package_name": "com.filippi.kanban"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOUXgmgH033zdTgLtIBb3XC7GmrfJZdhQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

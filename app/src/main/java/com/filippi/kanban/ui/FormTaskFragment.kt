@@ -6,14 +6,36 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.filippi.kanban.R
+import androidx.core.view.isVisible
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.database
+import com.filippi.kanban.data.model.Status
+import com.filippi.kanban.data.model.Task
 import com.filippi.kanban.databinding.FragmentFormTaskBinding
 import com.filippi.kanban.util.initToolbar
 import com.filippi.kanban.util.showBottomSheet
+import kotlin.getValue
 
 
 class FormTaskFragment : Fragment() {
     private var _binding: FragmentFormTaskBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var task: Task
+    private var newTask: Boolean = true
+    private var status: Status = Status.TODO
+
+    private lateinit var reference: DatabaseReference
+    private lateinit var auth: FirebaseAuth
+
+    private val args: FormTaskFragmentArgs by navArgs()
+    private val viewModel: TaskViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,21 +50,99 @@ class FormTaskFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initToolbar(binding.toolbar)
+        reference = Firebase.database.reference
+        auth = Firebase.auth
+
+        getArgs()
         initListener()
     }
-    private fun initListener(){
-        binding.buttonSave.setOnClickListener {
-            valideData()
+    private fun getArgs() {
+        val receivedTask = args.task
+
+        if (receivedTask != null) {
+            task = receivedTask
+            newTask = false
+            configTask()
+        } else {
+            newTask = true
+            task = Task()
         }
     }
 
-    private fun valideData(){
+    private fun configTask(){
+        newTask = false
+        status = task.status
+
+        binding.editTextDescricao.setText(task.description)
+        setStatus()
+
+    }
+
+    private fun setStatus(){
+        val id = when (task.status){
+            Status.TODO -> R.id.rbTodo
+            Status.DOING -> R.id.rbDoing
+            else -> R.id.rbDone
+        }
+        binding.radioGroup.check(id)
+    }
+
+    private fun initListener(){
+        binding.buttonSave.setOnClickListener {
+            validatedData()
+        }
+
+        binding.radioGroup.setOnCheckedChangeListener { _binding,  id-> status =
+            when(id) {
+                R.id.rbTodo -> Status.TODO
+                R.id.rbDoing -> Status.DOING
+                else -> Status.DONE
+            }
+        }
+    }
+
+    private fun validatedData(){
         val description = binding.editTextDescricao.text.toString().trim()
         if (description.isNotBlank()){
-            Toast.makeText(requireContext(),"Tudo OK!", Toast.LENGTH_SHORT).show()
+            binding.progressBar.isVisible = true
+
+            if(newTask) {
+                task = Task()
+                task.id = reference.database.reference.push().key ?: ""
+            }
+
+            task.description = description
+            task.status = status
+            saveTask()
         }else{
             showBottomSheet(message = getString(R.string.description_empty_form_task_fragment))
         }
+    }
+
+    private fun saveTask(){
+        reference
+            .child("tasks")
+            .child(auth.currentUser?.uid ?: "")
+            .child(task.id)
+            .setValue(task).addOnCompleteListener { result ->
+                if(result.isSuccessful){
+                    Toast.makeText(
+                        requireContext(),
+                        R.string.text_save_sucess_form_task_fragment,
+                        Toast.LENGTH_SHORT).show()
+
+                    if(newTask){
+                        findNavController().popBackStack()
+
+                    }else{
+                        viewModel.setUpdateTask(task)
+                        binding.progressBar.isVisible = false
+                    }
+                }else{
+                    binding.progressBar.isVisible = false
+                    showBottomSheet(message = getString(R.string.error_generic))
+                }
+            }
     }
 
     override fun onDestroyView() {
