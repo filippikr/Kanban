@@ -55,7 +55,6 @@ class TodoFragment : Fragment() {
 
     private fun initListeners(){
         binding.floatingActionButton2.setOnClickListener {
-            val action = HomeFragmentDirections.actionHomeFragmentToFormTaskFragment(null)
             findNavController().navigate(R.id.action_homeFragment_to_formTaskFragment)
         }
         observerViewModel()
@@ -123,13 +122,15 @@ class TodoFragment : Fragment() {
                     val taskList = mutableListOf<Task>()
 
                     for (ds in p0.children) {
-                        val task = ds.getValue(Task::class.java)
-                        if (task != null) {
+                        val task = ds.getValue(Task::class.java) as Task
+                        if (task.status == Status.TODO) {
                             taskList.add(task)
                         }
                     }
                     binding.progressBar.isVisible=false
                     listEmpty(taskList)
+
+                    taskList.reverse()
                     taskAdapter.submitList(taskList)
                 }
 

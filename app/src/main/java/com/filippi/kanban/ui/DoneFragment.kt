@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.filippi.kanban.NavGraphDirections
 import com.filippi.kanban.R
 import com.filippi.kanban.data.model.Status
 import com.filippi.kanban.data.model.Task
@@ -53,8 +54,8 @@ class DoneFragment : Fragment() {
 
     private fun initListeners(){
         binding.floatingActionButton2.setOnClickListener {
-            val action = HomeFragmentDirections.actionHomeFragmentToFormTaskFragment(null)
-            findNavController().navigate(R.id.action_homeFragment_to_formTaskFragment)
+            val action = NavGraphDirections.actionGlobalFormTaskFragment(null)
+            findNavController().navigate(action)
         }
         observerViewModel()
     }
@@ -97,7 +98,7 @@ class DoneFragment : Fragment() {
                     })
             }
             TaskAdapter.SELECT_EDIT -> {
-                val action = HomeFragmentDirections.actionHomeFragmentToFormTaskFragment(task)
+                val action = NavGraphDirections.actionGlobalFormTaskFragment(task)
                 findNavController().navigate(action)
             }
             TaskAdapter.SELECT_DETAILS -> {

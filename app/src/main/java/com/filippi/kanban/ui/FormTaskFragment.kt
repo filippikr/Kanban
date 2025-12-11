@@ -72,6 +72,7 @@ class FormTaskFragment : Fragment() {
     private fun configTask(){
         newTask = false
         status = task.status
+        binding.toolbar.title = "Editando"
 
         binding.editTextDescricao.setText(task.description)
         setStatus()
@@ -89,7 +90,7 @@ class FormTaskFragment : Fragment() {
 
     private fun initListener(){
         binding.buttonSave.setOnClickListener {
-            validatedData()
+            validateData()
         }
 
         binding.radioGroup.setOnCheckedChangeListener { _binding,  id-> status =
@@ -101,7 +102,7 @@ class FormTaskFragment : Fragment() {
         }
     }
 
-    private fun validatedData(){
+    private fun validateData(){
         val description = binding.editTextDescricao.text.toString().trim()
         if (description.isNotBlank()){
             binding.progressBar.isVisible = true

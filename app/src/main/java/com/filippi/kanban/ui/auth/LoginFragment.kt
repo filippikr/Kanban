@@ -36,7 +36,7 @@ class LoginFragment : Fragment() {
 
     private fun initListener(){
         binding.buttonLogin.setOnClickListener {
-            valideData()
+            validateData()
         }
         binding.textViewCriarConta.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
@@ -46,7 +46,7 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private fun valideData(){
+    private fun validateData(){
         val email = binding.editTextEmail.text.toString().trim()
         val senha = binding.editTextSenha.text.toString().trim()
         if(email.isNotBlank()) {

@@ -39,11 +39,11 @@ class RegisterFragment : Fragment() {
 
     private fun initListener(){
         binding.buttonCriarconta.setOnClickListener{
-            valideData()
+            validateData()
         }
     }
 
-    private fun valideData(){
+    private fun validateData(){
         val email = binding.editTextEmail.text.toString().trim()
         val senha = binding.editTextSenha.text.toString().trim()
         if(email.isNotBlank()) {

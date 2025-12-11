@@ -15,6 +15,7 @@ import com.filippi.kanban.databinding.FragmentDoingBinding
 import com.filippi.kanban.ui.adapter.TaskAdapter
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
+import com.filippi.kanban.NavGraphDirections
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
@@ -54,8 +55,8 @@ class DoingFragment : Fragment() {
 
     private fun initListeners(){
         binding.floatingActionButton2.setOnClickListener {
-            val action = HomeFragmentDirections.actionHomeFragmentToFormTaskFragment(null)
-            findNavController().navigate(R.id.action_homeFragment_to_formTaskFragment)
+            val action = NavGraphDirections.actionGlobalFormTaskFragment(null)
+            findNavController().navigate(action)
         }
 
         observerViewModel()
@@ -81,7 +82,7 @@ class DoingFragment : Fragment() {
     }
 
     private fun initRecyclerViewTask(){
-        taskAdapter = TaskAdapter(requireContext(),) { task, option -> optionSelected(task,option)}
+        taskAdapter = TaskAdapter(requireContext()) { task, option -> optionSelected(task,option)}
         with(binding.recyclerViewTask){
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
@@ -100,7 +101,7 @@ class DoingFragment : Fragment() {
                     })
             }
             TaskAdapter.SELECT_EDIT -> {
-                val action = HomeFragmentDirections.actionHomeFragmentToFormTaskFragment(task)
+                val action = NavGraphDirections.actionGlobalFormTaskFragment(task)
                 findNavController().navigate(action)
             }
             TaskAdapter.SELECT_DETAILS -> {
